@@ -1,14 +1,15 @@
 import { Space, Table } from "antd";
-import React, { Profiler } from "react";
+import React, { Profiler, useContext } from "react";
 import useTodoService, { TodoService, TodoData } from "./useTodoListService";
 import TableHandler from "./TableHandler";
 import CounterInput from "./CounterInput";
 
 export default function Counter() {
-  const todoService = useTodoService();
+  const todoService = useContext(TodoService);
+  const newTodoService = useTodoService();
   return (
-    <TodoService.Provider value={todoService}>
-      <Profiler id='render' onRender={console.log}>
+    <TodoService.Provider value={newTodoService}>
+      <Profiler id='local' onRender={console.log}>
         <Space direction='vertical' style={{ width: "100%" }}>
           <CounterInput />
           <Table

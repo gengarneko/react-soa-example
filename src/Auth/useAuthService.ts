@@ -1,6 +1,6 @@
 import { useLocalStorageState } from "ahooks";
 import { message } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import getServiceToken from "../Tools/getServiceToken";
 
@@ -16,6 +16,8 @@ export const AuthService = getServiceToken(useAuthService);
 export default function useAuthService() {
   const history = useHistory();
   const location = useLocation();
+  // 测试服务变更是否会影响 updateQueue
+  const [checkUpdate, setCheckUpdate] = useState("");
   const [token, setToken] = useLocalStorageState("token", "");
   const [userInfo, setUserInfo] = useLocalStorageState("userInfo", {
     name: "",
@@ -30,5 +32,12 @@ export default function useAuthService() {
       redirect("/login");
     }
   }, [token, location, redirect]);
-  return { token, setToken, userInfo, setUserInfo };
+  return {
+    token,
+    setToken,
+    userInfo,
+    setUserInfo,
+    setCheckUpdate,
+    checkUpdate,
+  };
 }

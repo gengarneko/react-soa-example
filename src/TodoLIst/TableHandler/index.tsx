@@ -1,5 +1,5 @@
 import { Space } from "antd";
-import React, { PropsWithoutRef, useEffect } from "react";
+import React, { Profiler, PropsWithoutRef, useEffect } from "react";
 import useTableHandlerService, {
   TableHandlerService,
 } from "./useTableHandlerService";
@@ -14,11 +14,13 @@ export default function TableHandler(
     tableHandlerService.setTitle(props.title);
   }, [props, tableHandlerService]);
   return (
-    <TableHandlerService.Provider value={tableHandlerService}>
-      <Space>
-        <DeleteButton />
-        <EditButton />
-      </Space>
-    </TableHandlerService.Provider>
+    <Profiler id='render' onRender={console.log}>
+      <TableHandlerService.Provider value={tableHandlerService}>
+        <Space>
+          <DeleteButton />
+          <EditButton />
+        </Space>
+      </TableHandlerService.Provider>
+    </Profiler>
   );
 }

@@ -24,8 +24,17 @@ export default function useTodoService() {
       setStored(todoList);
     }
   }, [todoList, setStored, stored]);
+
+  // 测试服务变更是否会影响 update
+  const [checkUpdate, setCheckUpdate] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      setCheckUpdate("checked");
+    }, 1000);
+  }, []);
   return {
     todoList,
     setTodoList,
+    checkUpdate,
   };
 }
